@@ -12,40 +12,8 @@ import json
 #  print('Window:', event.Window)
 #  print('WindowName:', event.WindowName)
 #  print('Ascii:', event.Ascii, chr(event.Ascii))
+#  print('Key:', event.Key)
 #  print('---')
-
-
-def normalize_keyname(pyhook_name):
-    pyhook_name = pyhook_name.lower()
-    special_names = {
-        'rshift': 'shiftright',
-        'lshift': 'shiftleft',
-        'rcontrol': 'ctrlright',
-        'lcontrol': 'ctrlleft',
-        'rmenu': 'altright',
-        'lmenu': 'altleft',
-        'rwin': 'winright',
-        'lwin': 'winleft',
-        'capital': 'capslock',
-        'back': 'backspace',
-        'prior': 'pageup',
-        'next': 'pagedown',
-        'numpad0': 'num0',
-        'numpad1': 'num1',
-        'numpad2': 'num2',
-        'numpad3': 'num3',
-        'numpad4': 'num4',
-        'numpad5': 'num5',
-        'numpad6': 'num6',
-        'numpad7': 'num7',
-        'numpad8': 'num8',
-        'numpad9': 'num9',
-        'snapshot': 'prtscr'
-    }
-    if pyhook_name in special_names:
-        return special_names[pyhook_name]
-    else:
-        return pyhook_name
 
 
 if __name__ == '__main__':
@@ -81,14 +49,14 @@ if __name__ == '__main__':
             hm.UnhookMouse()
             hm.UnhookKeyboard()
             sys.exit(0)
-        event_key = chr(event.Ascii) if event.Ascii != 0 else normalize_keyname(event.Key)
+        event_key = event.Key.upper()
         if event_key in keyboard_down:
             return True  # Pressing down key
         keyboard_down[event_key] = time.time()
         return True
 
     def on_keyboard_up_event(event):
-        event_key = chr(event.Ascii) if event.Ascii != 0 else normalize_keyname(event.Key)
+        event_key = event.Key.upper()
         if event_key not in keyboard_down:
             return True  # May occur during an initial [ENTER] or so
         press_time = keyboard_down[event_key]
