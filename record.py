@@ -18,11 +18,11 @@ import json
 
 if __name__ == '__main__':
 
-    file_path = os.path.join(os.path.join(os.path.realpath(__file__)), '..', 'history.txt')
+    configfile_path = os.path.join(os.path.join(os.path.realpath(__file__)), '..', 'history.txt')
     hm = pyHook.HookManager()
-    steps = []
-    mouse_down = {}  # {Button: {time: time_pressed, x: x, y: y}, ...}
-    keyboard_down = {}  # {Key: time_pressed, ...}
+    steps = []  # Configuration to save
+    mouse_down = {}  # {'Button': {time: time_pressed, x: x, y: y}, ...}
+    keyboard_down = {}  # {'Key': time_pressed, ...}
 
     def on_mouse_down_and_up(button_name):
 
@@ -44,7 +44,7 @@ if __name__ == '__main__':
 
     def on_keyboard_down_event(event):
         if event.KeyID == 164:  # Left ALT
-            with open(file_path, 'w') as fh:
+            with open(configfile_path, 'w') as fh:
                 json.dump(sorted(steps, key=lambda e: e[0]), fh)
             hm.UnhookMouse()
             hm.UnhookKeyboard()
