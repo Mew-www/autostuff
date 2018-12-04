@@ -60,11 +60,11 @@ if __name__ == '__main__':
         if event_key not in keyboard_down:
             return True  # May occur during an initial [ENTER] or so
         press_time = keyboard_down[event_key]
-        if (time.time() - press_time) < 0.2:
-            steps.append([press_time, 'type_{}'.format(event_key)])
-        else:
-            steps.append([press_time, 'hold_{}'.format(event_key)])
-            steps.append([time.time(), 'release_{}'.format(event_key)])
+        # if (time.time() - press_time) < 0.2:
+        #     steps.append([press_time, 'type_{}'.format(event_key)])
+        # else:
+        steps.append([press_time, 'hold_{}'.format(event_key)])
+        steps.append([time.time(), 'release_{}'.format(event_key)])
         del keyboard_down[event_key]
         return True
 
