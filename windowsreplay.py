@@ -1,4 +1,3 @@
-import json
 import time
 import pyautogui
 from windowskb import KEYMAP, type_key, hold_key, release_key
@@ -6,10 +5,9 @@ from windowskb import KEYMAP, type_key, hold_key, release_key
 pyautogui.FAILSAFE = True
 
 
-def replay_file(file_path, initial_delay=0):
+def replay(steps, initial_delay=0):
 
     # Load steps from JSON config and optionally sleep
-    steps = json.load(open(file_path, 'r'))
     time.sleep(initial_delay)
 
     # Keep track of timing and perform mouse/kb actions
